@@ -2,7 +2,7 @@ const express=require('express');
 const bodyParser=require('body-parser');
 
 const {PORT}=require("./config/serverConfig"); 
-const { blobFromSync } = require('node-fetch');
+
 
 const setupAndStartServer= async()=>{
     

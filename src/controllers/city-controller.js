@@ -70,11 +70,25 @@ const update = async (req, res) => {
 const get = async (req, res) => {
     try {
             const city= await cityServices.getCity(req.params.id);
-            return res.status(201).json({
-                data : city,
-                success : true,
-                message : "Successfully get a city"
-            })
+
+            if(city!=null)
+            {
+                return res.status(201).json({
+                    data : city,
+                    success : true,
+                    message : "Successfully get a city"
+                }) 
+            }
+            else
+            {
+                return res.status(404).json({
+                    data : city,
+                    success : true,
+                    message : "City not found"
+                })
+            }
+
+            
     } catch (error) {
         res.status(500).json({
             success: false,

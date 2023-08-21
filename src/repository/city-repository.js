@@ -26,16 +26,21 @@ class CityRepository {
         }
     }
 
-    async updateCity({ cityId ,data }) {
+    async updateCity(cityId,data) {
 
         try {
-            const cityToUpdate = await City.update({ data }, {
-                where: {
-                    id: cityId
-                }
-            })
+            // Either of the both can be use...
 
-            return cityToUpdate;
+            // const cityToUpdate = await City.update(data , {
+            //     where: {
+            //         id: cityId
+            //     }
+            // })
+            const city = await City.findByPk(cityId);
+            city.name=data.name;
+            await city.save();
+
+            return city ;
 
         } catch (error) {
             console.log("There is something error in city repository");

@@ -22,7 +22,7 @@ class CityServices {
     async deleteCity(cityId) {
         try {
             const response = await this.cityRepository.deleteCity(cityId);
-            throw ({error});
+            return response;
 
         } catch (error) {
             console.log("There is something wrong in service layer");
@@ -55,8 +55,6 @@ class CityServices {
 
 }
 
-// const cityRepository= new CityRepository();
-// const  cityServices= new CityServices(cityRepository);
 
 
 module.exports = CityServices;

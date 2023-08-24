@@ -1,4 +1,5 @@
 const { City } = require('../models/index');
+const { Op } = require("sequelize");
 
 class CityRepository {
 
@@ -26,7 +27,7 @@ class CityRepository {
         }
     }
 
-    async updateCity(cityId,data) {
+    async updateCity(cityId, data) {
 
         try {
             // Either of the both can be use...
@@ -37,10 +38,10 @@ class CityRepository {
             //     }
             // })
             const city = await City.findByPk(cityId);
-            city.name=data.name;
+            city.name = data.name;
             await city.save();
 
-            return city ;
+            return city;
 
         } catch (error) {
             console.log("There is something error in city repository");
@@ -61,6 +62,35 @@ class CityRepository {
         }
     }
 
+    async getAllCities(filter) {
+        try {
+            if (filter.name) {
+                const cities = await City.findAll({
+                        where : {
+                            name : {
+                                [Op.startsWith] : filter.name,
+                            }
+                        }
+                })
+                return cities;
+            }
+
+            console.log(filter.name);
+
+
+            const cities = await City.findAll();
+            return cities;
+
+        } catch (error) {
+            console.log("There is something error in city repository");
+            throw ({ error });
+        }
+    }
+
+
+
 }
 
 module.exports = CityRepository;
+
+//Database logic is here.

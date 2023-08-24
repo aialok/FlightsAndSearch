@@ -28,13 +28,13 @@ const create = async (req, res) => {
 const destroy = async (req, res) => {
 
     try {
-            const response = await cityServices.deleteCity(req.params.id);
-            res.status(200).json({
-                data: response,
-                success: true,
-                message: "Successfully deleted a city",
-                err: {}
-            })
+        const response = await cityServices.deleteCity(req.params.id);
+        res.status(200).json({
+            data: response,
+            success: true,
+            message: "Successfully deleted a city",
+            err: {}
+        })
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -48,13 +48,13 @@ const destroy = async (req, res) => {
 // Patch -> /city/:id && data -> req.body
 const update = async (req, res) => {
     try {
-            const city= await cityServices.updateCity(req.params.id, req.body);
-            res.status(201).json({
-                data : city,
-                success: true,
-                message: "Successfully updated a city",
-                err: {}
-            })
+        const city = await cityServices.updateCity(req.params.id, req.body);
+        res.status(201).json({
+            data: city,
+            success: true,
+            message: "Successfully updated a city",
+            err: {}
+        })
 
     } catch (error) {
         res.status(500).json({
@@ -69,26 +69,22 @@ const update = async (req, res) => {
 // GET -> /city/:id
 const get = async (req, res) => {
     try {
-            const city= await cityServices.getCity(req.params.id);
+        const city = await cityServices.getCity(req.params.id);
 
-            if(city!=null)
-            {
-                return res.status(201).json({
-                    data : city,
-                    success : true,
-                    message : "Successfully get a city"
-                }) 
-            }
-            else
-            {
-                return res.status(404).json({
-                    data : city,
-                    success : true,
-                    message : "City not found"
-                })
-            }
-
-            
+        if (city != null) {
+            return res.status(201).json({
+                data: city,
+                success: true,
+                message: "Successfully get a city"
+            })
+        }
+        else {
+            return res.status(404).json({
+                data: city,
+                success: true,
+                message: "City not found"
+            })
+        }
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -99,9 +95,42 @@ const get = async (req, res) => {
 }
 
 
-module.exports ={
+const getAllCities=async (req,res)=>{
+    try {
+
+        const cities = await cityServices.getAllCities(req.query);
+        if (cities != null) {
+            return res.status(201).json({
+                data: cities,
+                success: true,
+                message: "Successfully get a city"
+            })
+        }
+        else {
+            return res.status(404).json({
+                data: cities,
+                success: false,
+                message: "City not found"
+            })
+        }
+    
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Not able to fetch all city",
+            err: error
+        })
+    }
+}
+
+module.exports = {
     create,
     destroy,
     update,
-    get
+    get,
+    getAllCities
 }
+
+
+// Routes logic is here i.e sort of api's logic

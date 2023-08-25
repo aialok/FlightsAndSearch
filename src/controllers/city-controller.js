@@ -16,7 +16,7 @@ const create = async (req, res) => {
         })
     } catch (error) {
 
-        res.status(500).json({
+       return res.status(500).json({
             success: false,
             message: "Not able to create a city",
             err: error
@@ -29,14 +29,14 @@ const destroy = async (req, res) => {
 
     try {
         const response = await cityServices.deleteCity(req.params.id);
-        res.status(200).json({
+       return res.status(200).json({
             data: response,
             success: true,
             message: "Successfully deleted a city",
             err: {}
         })
     } catch (error) {
-        res.status(500).json({
+       return res.status(500).json({
             success: false,
             message: "Not able to delete a city",
             err: error
@@ -49,7 +49,7 @@ const destroy = async (req, res) => {
 const update = async (req, res) => {
     try {
         const city = await cityServices.updateCity(req.params.id, req.body);
-        res.status(201).json({
+       return res.status(201).json({
             data: city,
             success: true,
             message: "Successfully updated a city",
@@ -57,7 +57,7 @@ const update = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(500).json({
+      return  res.status(500).json({
             success: false,
             message: "Not able to update a city",
             err: error
@@ -86,7 +86,7 @@ const get = async (req, res) => {
             })
         }
     } catch (error) {
-        res.status(500).json({
+       return  res.status(500).json({
             success: false,
             message: "Not able to get a city",
             err: error
@@ -95,7 +95,7 @@ const get = async (req, res) => {
 }
 
 
-const getAllCities=async (req,res)=>{
+const getAllCities = async (req, res) => {
     try {
 
         const cities = await cityServices.getAllCities(req.query);
@@ -113,15 +113,39 @@ const getAllCities=async (req,res)=>{
                 message: "City not found"
             })
         }
-    
+
 
     } catch (error) {
-        res.status(500).json({
+       return res.status(500).json({
             success: false,
             message: "Not able to fetch all city",
             err: error
         })
     }
+
+
+
+
+}
+const createManyCities = async (req, res) => {
+
+    try {
+        const cities = await cityServices.createManyCities(req.body);
+
+       return res.status(201).json({
+            data: cities,
+            success: true,
+            message: "Cities  Created successfully"
+        })
+
+    } catch (error) {
+      return  res.status(500).json({
+            success: false,
+            message: "Not able to Create all the city",
+            err: error
+        })
+    }
+
 }
 
 module.exports = {
@@ -129,7 +153,8 @@ module.exports = {
     destroy,
     update,
     get,
-    getAllCities
+    getAllCities,
+    createManyCities
 }
 
 

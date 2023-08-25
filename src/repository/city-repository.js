@@ -66,11 +66,11 @@ class CityRepository {
         try {
             if (filter.name) {
                 const cities = await City.findAll({
-                        where : {
-                            name : {
-                                [Op.startsWith] : filter.name,
-                            }
+                    where: {
+                        name: {
+                            [Op.startsWith]: filter.name,
                         }
+                    }
                 })
                 return cities;
             }
@@ -87,6 +87,18 @@ class CityRepository {
         }
     }
 
+
+    async CreateManyCities(data) {
+        try {
+            const Cities = await City.bulkCreate(data);
+            return Cities;
+
+        } catch (error) {
+            console.log("There is something error in city repository");
+            throw ({ error });
+        }
+
+    }
 
 
 }

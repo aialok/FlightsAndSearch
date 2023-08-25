@@ -1,6 +1,5 @@
 const { CityRepository } = require("../repository/index");
 
-
 class CityServices {
 
     constructor() {
@@ -60,6 +59,18 @@ class CityServices {
             console.log("There is something wrong in service layer");
             throw ({ error });
         }
+    }
+
+    async createManyCities(data) {
+        try {
+            const Cities = await this.cityRepository.CreateManyCities(data);
+            return Cities;
+
+        } catch (error) {
+            console.log("There is something error in Service repository");
+            throw ({ error });
+        }
+
     }
 
 

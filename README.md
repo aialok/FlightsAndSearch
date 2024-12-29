@@ -1,5 +1,10 @@
 # Welcome to Flights Service
 
+# Other Services:
+- Auth Service  https://github.com/aialok/AuthServices
+- Booking Service: https://github.com/aialok/AirlineBookingService
+- Reminder Service: https://github.com/aialok/ReminderService
+
 ## Project Setup
 
  - Clone the project on your local
